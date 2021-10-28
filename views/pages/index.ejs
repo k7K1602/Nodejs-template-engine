@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<body>
+    <div class="">
+        <div id="active-department"></div>
+        <br>
+        <div id="artwork-list" class="d-flex flex-wrap align-items-start"></div>
+        <script>
+             const fetchList = async (endpoint) => {
+                const response = await fetch(endpoint);
+                return response.json();
+            }
+            const updateArtWork = async ({displayName, departmentId}) => {
+                $('#active-department').html(`<h1 class="w-100 text-center pt-3">${displayName}</h1>`);
+                const response = await fetchList(`https://collectionapi.metmuseum.org/public/collection/v1/objects?departmentIds=${departmentId}`);
+                responseList[departmentId] = response;
+                const promiseArr = (response.objectIDs || []).slice(0, 10).map(async (objectId) => fetchList(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectId}`));
+                objectList = await Promise.all(promiseArr);
+                $('#artwork-list').empty();
+                $('#artwork-list').append(
+                    objectList.map((e) => `<a href="/object/${e.objectID}" class="w-25 p-2 h-100" style="cursor: pointer; text-decoration: none; color: #595959"><div class="p-2" style="border-width:1px;border-style:solid;border-color:#e1e1e1;border-radius:4px;background-color: #f5f5f5;box-shadow: 2px 2px 5px 3px #87878769;"><div class="w-100" style="height:200px;"><img class="w-100 h-100" style="object-fit-contain;object-position:center;" src=${e.primaryImage} alt="image" /></div><p class="text-center mt-3" style="font-size:16px;font-weight:bold;">${e.title}</p><p class="text-center mt-2" style="font-size:14px;font-weight:normal;">${e.repository}</p></div></a>`)
+                );
+            }
+        </script>
+
+        <script>
+            let activeSlide = 0, objectList = [];
+            const responseList = {};
+            const dList = <%- JSON.stringify(departmentList) %>;
+            const { displayName, departmentId } = dList[0];
+            updateArtWork({ displayName, departmentId })
+        </script>
+        <script>
+            setInterval(async function () {
+                dList.length === activeSlide ? activeSlide = 0 : activeSlide += 1;
+                const { displayName, departmentId } = dList[activeSlide];
+                if (!responseList[activeSlide]?.objectIDs)
+                    await updateArtWork({ displayName, departmentId })
+            }, [10000])
+        </script>
+    </div>
+</body>
+
+</html>

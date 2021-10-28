@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<style>
+    .footer-heading {
+        font-size: 16px;
+        font-weight: bold;
+        color: #595959;
+        letter-spacing: 1px;
+        margin-bottom: 0;
+        line-height: 21px;
+    }
+
+    .footer-description {
+        font-size: 14px;
+        font-weight: normal;
+        color: #595959;
+        margin-bottom: 0;
+        line-height: 22px;
+    }
+</style>
+
+<body>
+    <div>
+        <header class="p-4" style="position: sticky; top: 0;
+            background-color: #fff; z-index: 1; text-align: right;"><a class="p-1"
+                style="text-decoration: none;color: #4f69ff;" href="/">Back to Home</a></header>
+        <div style="height: calc(100vh - 72px);overflow: auto;">
+            <div style="border-bottom: 1px solid #e1e1e1;" class="d-flex align-items-start flex-wrap w-100 p-2">
+                <div class="w-50 p-2">
+                    <h4 style="font-size: 24px;font-weight:bold;color:#595959;letter-spacing: 1.5px;">
+                        <%= objectDetails.title %>
+                    </h4>
+                    <h5 style="font-size: 20px;font-weight:bold;color:#898989">
+                        <%= objectDetails.department %>
+                    </h5>
+                    <p style="font-size: 16px;font-weight:normal;color:#595959">
+                        <%= objectDetails.artistAlphaSort || objectDetails.country %>
+                    </p>
+                </div>
+                <div class="w-50 p-2" style="height:450px;min-width: 300px;">
+                    <img src=<%=objectDetails.primaryImage %> class="w-100 h-100" style="object-fit:
+                    contain;object-position:center"/>
+                </div>
+            </div>
+            <div class="p-3 d-flex flex-wrap">
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        Title:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.title || '-' %>
+                    </p>
+                </div>
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        Dimensions:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.dimensions || '-' %>
+                    </p>
+                </div>
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        Begining Date:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.objectBeginDate || '-' %>
+                    </p>
+                </div>
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        Medium:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.medium || '-' %>
+                    </p>
+                </div>
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        End Date:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.objectEndDate || '-' %>
+                    </p>
+                </div>
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        Culture:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.culture || '-' %>
+                    </p>
+                </div>
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        Credit Line:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.creditLine || '-' %>
+                    </p>
+                </div>
+                <div style="min-width: fit-content;" class="py-3 w-50 d-flex align-items-center">
+                    <p class="footer-heading pe-2">
+                        Accession Number:</p>
+                    <p class="footer-description">
+                        <%=objectDetails.accessionNumber || '-' %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
